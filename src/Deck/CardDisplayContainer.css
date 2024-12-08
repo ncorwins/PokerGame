@@ -22,6 +22,10 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for a floating effect */
     transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover transition */
 }
+    .card.selected {
+        border: 2px solid yellow; /* Yellow border for the selected card */
+        background-color: rgba(255, 255, 0, 0.2); /* Optional background color */
+    }
 
     /* Hover effect to add interaction */
     .card:hover {

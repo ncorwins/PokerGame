@@ -8,11 +8,6 @@ interface CardDisplayProps {
     onClick?: () => void;  // Make the onClick prop optional
 }
 
-interface Card {
-    rank: string;
-    suit: string;
-}
-
 const CardDisplay: React.FC<CardDisplayProps> = ({ card, onClick }) => {
     // Map the suit to its corresponding symbol
     const getSuitSymbol = (suit: string): string => {
@@ -31,7 +26,7 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card, onClick }) => {
     };
 
     return (
-        <div className="card" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+        <div className={`card ${card.selected ? 'selected' : ''}`} onClick={onClick} style={{ cursor: 'pointer' }}>
             <div className="card-value">{card.rank}</div>
             <div className={`card-suit ${card.suit.toLowerCase()}`}>
                 {getSuitSymbol(card.suit)}

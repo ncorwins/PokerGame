@@ -16,7 +16,7 @@ export class Deck {
 
         for (let suit of suits) {
             for (let i = 0; i < ranks.length; i++) {
-                this.deck.push(new Card(suit, values[i], ranks[i], true));
+                this.deck.push(new Card(suit, values[i], ranks[i], false));
             }
         }
     }
@@ -34,8 +34,8 @@ export class Deck {
         return this.deck.pop();
     }
 
-    add(c) {
-        this.deck.push(c);
+    add(card) {
+        this.deck.push(card);
     }
 
     // Method to reset the deck (recreate and shuffle)
