@@ -38,6 +38,10 @@ export class Deck {
         this.deck.push(card);
     }
 
+    length() {
+        return this.deck.length;
+    }
+
     // Method to reset the deck (recreate and shuffle)
     reset() {
         this.deck = [];

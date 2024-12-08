@@ -12,7 +12,7 @@
     width: 80px;
     height: 120px;
     border-radius: 10px; /* Rounded corners */
-    border: 2px solid #ddd; /* Light border color */
+    border: 3px solid #ddd; /* Light border color */
     background: linear-gradient(135deg, #f9f9f9 25%, #e0e0e0 100%); /* Gradient background */
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover transition */
 }
     .card.selected {
-        border: 2px solid yellow; /* Yellow border for the selected card */
+        border: 3px solid black; /* Yellow border for the selected card */
         background-color: rgba(255, 255, 0, 0.2); /* Optional background color */
     }
 

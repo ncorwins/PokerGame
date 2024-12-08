@@ -6,6 +6,7 @@ import { evaluateHand, HandRankings } from './Deck/handEvaluator.ts';  // Import
 import { useGlobalState } from "./GlobalStateContext.tsx";
 import './Deck/CardDisplayContainer.css';
 import CardDisplay from './Deck/CardDisplay.tsx';
+import './CardControls.css';
 
 const CardControls: React.FC = () => {
     const [deck] = useState(new Deck());
@@ -34,9 +35,20 @@ const CardControls: React.FC = () => {
     };
 
     const evaluateBestHand = () => {
-        const handRank = evaluateHand(dealtCards);
+        var holder = [];
+        for (let i = 0; i < dealtCards.length; i++) {
+            if (dealtCards[i].selected) {
+                holder.push(dealtCards[i]);
+            }
+        }
+        if (holder.length != 5) {
+            setBestHand('Invalid. Please select 5 cards.');
+            return;
+        }
+
+        const handRank = evaluateHand(holder);
         const handName = Object.keys(HandRankings).find(key => HandRankings[key as keyof typeof HandRankings] === handRank);
-        setBestHand(handName || 'High Card');
+        setBestHand('Best Hand: ' + (handName || 'High Card'));
     };
 
     const removeCard = (cardToRemove: Card) => {
@@ -56,6 +68,9 @@ const CardControls: React.FC = () => {
         for (let i = 0; i < holder.length; i++) {
             if (holder[i].selected) {
                 console.log(holder[i]);
+                holder[i].selected = false;
+                deck.add(holder[i]);
+                console.log(deck.length());
 
                 // Remove the selected card from the holder
                 holder.splice(i, 1);
@@ -76,8 +91,9 @@ const CardControls: React.FC = () => {
 
     return (
         <div>
-            <button onClick={dealCards}>Deal Cards</button>
-            <button onClick={discardSelected}>Discard</button>
+            <button className="btn btn-moving-gradient-2 btn-moving-gradient--red" onClick={discardSelected}>Discard</button>
+            <button className="btn btn-moving-gradient btn-moving-gradient--blue" onClick={dealCards}>Deal Cards</button>
+            <button className="btn btn-moving-gradient-3 btn-moving-gradient--purple" onClick={evaluateBestHand}>Evaluate</button>
             <div className="card-container">
                 {dealtCards.map((card, index) => (
                     <CardDisplay
@@ -88,7 +104,7 @@ const CardControls: React.FC = () => {
                 ))}
             </div>
 
-            <h2>Best Hand: {bestHand}</h2>
+            <h2>{bestHand}</h2>
         </div>
     );
 };

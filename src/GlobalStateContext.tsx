@@ -6,7 +6,7 @@ const GlobalStateContext = createContext<any>(null);
 
 // Create a provider component
 export const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
-    const [globalCardCount, setGlobalCardCount] = useState<number>(5);
+    const [globalCardCount, setGlobalCardCount] = useState<number>(8);
 
 
 
