@@ -1,38 +1,67 @@
-.App {
-  text-align: center;
+/* Reset some default styles 
+    #c2e2ff == light blue
+    #6698c4 == darker blue
+
+
+*/
+
+
+:root {
+    --blue: #c2e2ff;
+    --d_blue: #6698c4;
+    --d_blue_h: #256ba8;
+    --blue_bg: #355485;
+    --idk: #8cc6ff;
+    --upg: #a2e0f2;
+    --upg2: #45b0d1;
+    --upg3: #1f6b82;
+    --tool: #f2d2fc;
+    --tool2: #c27ed6;
+    --tool3: #933bad;
+    user-select: none; /* Disable text selection */
+    -webkit-user-select: none; /* For WebKit browsers (Safari, Chrome) */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--blue);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Set up the app container using Flexbox */
+.app-container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Content area where the bean image and other components go */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    flex-grow: 1; /* Take up remaining space */
+    text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Responsive design to make the layout adaptable */
+@media screen and (max-width: 768px) {
+    .app-container {
+        flex-direction: column; /* Stack content and stores vertically on smaller screens */
+    }
+
+    .store {
+        width: 100%; /* Full width on smaller screens */
+        position: relative; /* Remove sticky positioning */
+        box-shadow: none; /* Optional: remove shadow on smaller screens */
+    }
+
+    .content {
+        width: 100%; /* Full width for content */
+        margin-bottom: 20px; /* Add spacing below the content */
+    }
 }
