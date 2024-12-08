@@ -104,7 +104,7 @@ const CardControls: React.FC = () => {
                 ))}
             </div>
 
-            <h2>{bestHand}</h2>
+            <h2 className="bestHandText">{bestHand}</h2>
         </div>
     );
 };

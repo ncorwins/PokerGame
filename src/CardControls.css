@@ -80,4 +80,8 @@
 .btn-moving-gradient--purple {
     background-image: linear-gradient(90deg, rgb(62, 53, 141), rgb(135, 53, 141), rgb(106, 53, 141), rgb(61, 52, 139));
     box-shadow: rgb(135, 53, 141) 0px 4px 15px 0px;
-}  
+}
+
+.bestHandText {
+    margin-top: 15px;
+}
