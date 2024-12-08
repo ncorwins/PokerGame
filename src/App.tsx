@@ -1,15 +1,21 @@
 import * as React from 'react';
 import { GlobalStateProvider } from "./GlobalStateContext.tsx";
+import DeckComponent from './Deck/DeckComponent.tsx';
+import { DeckProvider } from './Deck/DeckContext.tsx';  // Corrected import
+import CardDisplayContainer from './Deck/CardDisplayContainer.tsx';
 import "./App.css";
 
-function App() {
+const App: React.FC = () => {
 
     return (
         <GlobalStateProvider>
-            <div className="app-container">
-                <div className="content">Test
+            <DeckProvider>
+                <div className="app-container">
+                    <div className="content">
+                        < CardDisplayContainer />
+                    </div>
                 </div>
-            </div>
+            </DeckProvider>
         </GlobalStateProvider>
     );
 }

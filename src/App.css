@@ -7,17 +7,11 @@
 
 
 :root {
-    --blue: #c2e2ff;
-    --d_blue: #6698c4;
-    --d_blue_h: #256ba8;
-    --blue_bg: #355485;
-    --idk: #8cc6ff;
-    --upg: #a2e0f2;
-    --upg2: #45b0d1;
-    --upg3: #1f6b82;
-    --tool: #f2d2fc;
-    --tool2: #c27ed6;
-    --tool3: #933bad;
+    --red: #ff6e8d;
+    --hearts: #e74c3c;
+    --diamonds: #4a7dff;
+    --clubs: #00a624;
+    --spades: #2c3e50;
     user-select: none; /* Disable text selection */
     -webkit-user-select: none; /* For WebKit browsers (Safari, Chrome) */
 }
@@ -26,7 +20,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: var(--blue);
+    background-color: var(--red);
 }
 
 /* Set up the app container using Flexbox */
@@ -45,6 +39,10 @@
     flex-grow: 1; /* Take up remaining space */
     text-align: center;
 }
+
+
+
+
 
 
 
