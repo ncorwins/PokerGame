@@ -1,0 +1,70 @@
+/* Ensure no other button styles affect this specific button */
+.questWall .btn-flip-side {
+    position: relative; /* For positioning the child elements */
+    width: 200px; /* Define width for the button */
+    height: 50px; /* Define height for the button */
+    transform-style: preserve-3d; /* Enable 3D transformations for the child spans */
+    transition: transform 0.5s; /* Smooth flip transition */
+    perspective: 1000px; /* Add perspective for 3D effect */
+    margin: 10px;
+}
+
+    /* Flip effect when hovered */
+    .questWall .btn-flip-side:hover {
+        transform: rotateX(180deg); /* Flip the button when hovered */
+    }
+
+    /* Front and back span elements */
+    .questWall .btn-flip-side > span {
+        position: absolute;
+        width: 100%; /* Full width of the button */
+        height: 100%; /* Full height of the button */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 50px;
+        text-align: center;
+        backface-visibility: hidden; /* Hide the back side when flipped */
+    }
+
+        /* Front side of the button (initial state) */
+        .questWall .btn-flip-side > span:first-child {
+            color: rgb(255, 160, 122); /* Light red text color */
+            background: none; /* No background for the front */
+            transform: rotateX(0deg); /* Default position */
+        }
+
+        /* Back side of the button (flipped state) */
+        .questWall .btn-flip-side > span:nth-child(2) {
+            color: white; /* Back text color */
+            background: rgb(255, 160, 122); /* Light red background color */
+            transform: rotateX(180deg); /* Initially hidden (flipped 180deg) */
+        }
+
+/* Styling specific to the light red theme */
+.questWall .btn-flip-side--light-red > span {
+    border: 5px solid rgb(255, 160, 122); /* Light red border */
+    border-radius: 10px;
+}
+
+    .questWall .btn-flip-side--light-red > span:first-child {
+        color: rgb(255, 160, 122); /* Front color of the button */
+    }
+
+    .questWall .btn-flip-side--light-red > span:nth-child(2) {
+        background: rgb(255, 160, 122); /* Back background color */
+    }
+
+/* Styling for the green theme (after achievement) */
+.questWall .btn-flip-side--green > span {
+    border: 5px solid rgb(34, 193, 34); /* Green border */
+    border-radius: 10px;
+}
+
+    .questWall .btn-flip-side--green > span:first-child {
+        color: rgb(34, 193, 34); /* Front color of the button */
+    }
+
+    .questWall .btn-flip-side--green > span:nth-child(2) {
+        background: rgb(34, 193, 34); /* Green background color */
+    }

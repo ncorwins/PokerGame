@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useGlobalState } from './GlobalStateContext.tsx';
 import './Store.css';
+import PlayClick from './sound/PlayClick.tsx';
 
 const Store: React.FC = () => {
     const { globalPointScore, globalMoney, storeCards, setStoreCards, showPlayButton2, setShowBuyButton } = useGlobalState();
@@ -15,6 +16,7 @@ const Store: React.FC = () => {
         for (let i = 0; i < updatedCards.length; i++) {
             if (updatedCards[i].selected && updatedCards[i].purchased === false) {
                 setShowBuyButton(true);
+                PlayClick();
             }
         }
     };

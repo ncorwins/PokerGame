@@ -2,10 +2,11 @@ import * as React from 'react';
 import './SideButtons.css';
 import { useGlobalState } from './GlobalStateContext.tsx';
 import { useState } from 'react';
+import PlayClick from './sound/PlayClick.tsx';
 
 const Store: React.FC = () => {
 
-    const { usedDiscards, totalDiscards, setTotalDiscards, roundsCompleted, setRoundsCompleted, globalAnte, setGlobalAnte, globalCardCount, setGlobalCardCount, setGlobalMoney, showPlayButton2, setShowPlayButton2, setGenerateCards, globalPointScore, globalMoney, storeCards, setStoreCards, showBuyButton, setShowBuyButton } = useGlobalState();
+    const { setDoubleQuestMoney, usedDiscards, totalDiscards, setTotalDiscards, roundsCompleted, setRoundsCompleted, globalAnte, setGlobalAnte, globalCardCount, setGlobalCardCount, setGlobalMoney, showPlayButton2, setShowPlayButton2, setGenerateCards, globalPointScore, globalMoney, storeCards, setStoreCards, showBuyButton, setShowBuyButton } = useGlobalState();
 
     const [helperText, setHelperText] = useState<string>(''); // To store the best hand
 
@@ -26,6 +27,7 @@ const Store: React.FC = () => {
             return;
         }
 
+        PlayClick();
 
         var helper = roundsCompleted;
         setRoundsCompleted(helper += 1);
@@ -55,6 +57,7 @@ const Store: React.FC = () => {
                 }
 
                 if (globalMoney >= storeCards[i].cost) {
+                    PlayClick();
                     var money = globalMoney;
                     money -= storeCards[i].cost;
                     setGlobalMoney(money);
@@ -70,6 +73,10 @@ const Store: React.FC = () => {
                     if (i === 4) { // extra discard
                         var holder2 = totalDiscards;
                         setTotalDiscards(holder2 += 1);
+                    }
+
+                    if (i === 5) {
+                        setDoubleQuestMoney(true);
                     }
 
                     setStoreCards(storeCards);

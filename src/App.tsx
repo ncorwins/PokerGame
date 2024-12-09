@@ -6,6 +6,7 @@ import "./App.css";
 import SideButtons from './SideButtons.tsx';
 import Store from './Store.tsx';
 import { useGlobalState } from './GlobalStateContext.tsx';
+import Quests from './Quests.tsx';
 
 const App: React.FC = () => {
 
@@ -16,8 +17,9 @@ const App: React.FC = () => {
                 <div className="content">
                     < Store />
                         < CardControls />
-                    </div>
                 </div>
+                < Quests />
+            </div>
         </GlobalStateProvider>
     );
 }
