@@ -3,8 +3,9 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\Deck"
+    "\\src\\Deck",
+    "\\src\\sound"
   ],
-  "SelectedNode": "\\src\\Deck\\handEvaluator.ts",
+  "SelectedNode": "\\src\\GlobalStateContext.tsx",
   "PreviewInSolutionExplorer": false
 }

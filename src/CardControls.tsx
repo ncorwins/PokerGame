@@ -246,7 +246,7 @@ const CardControls: React.FC = () => {
             handNameNice = handName;
         }
 
-        setBestHand(handNameNice + ': $' + points);
+        setBestHand(handNameNice);
         return points;
     };
 
