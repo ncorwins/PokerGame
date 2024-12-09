@@ -2,17 +2,16 @@ import Card from "./Card";
 
 // Define the possible hand rankings
 export const HandRankings = {
-    HIGH_CARD: 0,
-    PAIR: 1,
-    TWO_PAIR: 2,
-    THREE_OF_A_KIND: 3,
-    STRAIGHT: 4,
-    FLUSH: 5,
-    FULL_HOUSE: 6,
-    FOUR_OF_A_KIND: 7,
-    STRAIGHT_FLUSH: 8,
-    ROYAL_FLUSH: 9,
-    INVALID: 10
+    HIGH_CARD: 1,
+    PAIR: 2,
+    TWO_PAIR: 4,
+    THREE_OF_A_KIND: 10,
+    STRAIGHT: 12,
+    FLUSH: 16,
+    FULL_HOUSE: 20,
+    FOUR_OF_A_KIND: 80,
+    STRAIGHT_FLUSH: 500,
+    ROYAL_FLUSH: 5000,
 };
 
 // Function to evaluate the best hand
@@ -76,6 +75,38 @@ function isStraightHand(cards: Card[]): boolean {
     const rankOrder = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     const sortedRanks = ranks.sort((a, b) => rankOrder.indexOf(a) - rankOrder.indexOf(b));
     const startIndex = rankOrder.indexOf(sortedRanks[0]);
+
+    const lowStraight = [0, 0, 0, 0, 0];
+
+    for (let i = 0; i < cards.length; i++) {
+        if (cards[i].rank == 'A') {
+            lowStraight[0] = 1;
+        }
+        if (cards[i].rank == '2') {
+            lowStraight[1] = 1;
+        }
+        if (cards[i].rank == '3') {
+            lowStraight[2] = 1;
+        }
+        if (cards[i].rank == '4') {
+            lowStraight[3] = 1;
+        }
+        if (cards[i].rank == '5') {
+            lowStraight[4] = 1;
+        }
+    }
+
+    var lowStraightT = true;
+
+    for (let i = 0; i < lowStraight.length; i++) {
+        if (lowStraight[i] != 1) {
+            lowStraightT = false;
+        }
+    }
+
+    if (lowStraightT) {
+        return true;
+    }
 
     for (let i = 0; i < 4; i++) {
         if (rankOrder.indexOf(sortedRanks[i + 1]) !== startIndex + i + 1) {

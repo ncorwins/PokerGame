@@ -16,7 +16,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
     const [twosRemoved, setTwosRemoved] = useState<boolean>(false);
     const [generateCards, setGenerateCards] = useState<boolean>(true);
     const [showBuyButton, setShowBuyButton] = useState<boolean>(false);
-    const [globalAnte, setGlobalAnte] = useState<number>(10);
+    const [globalAnte, setGlobalAnte] = useState<number>(25);
     const [storeCards, setStoreCards] = useState<any[]>([
         {
             name: "Money Multiplier",

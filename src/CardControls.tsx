@@ -234,7 +234,7 @@ const CardControls: React.FC = () => {
 
                         setTimeout(() => {
                             if (storeCards[0].purchased) {
-                                const prevMoney = holdMoney;
+                                const prevMoney = Math.round(holdMoney);
                                 holdMoney = holdMoney * 1.2;
 
                                 setBestHand('$' + prevMoney + ' x 1.2 = $' + Math.round(holdMoney));
@@ -245,18 +245,18 @@ const CardControls: React.FC = () => {
                             }
                             setTimeout(() => {
                                 if (storeCards[1].purchased) {
-                                    const prevMoney = holdMoney;
+                                    const prevMoney = Math.round(holdMoney);
                                     holdMoney = holdMoney + 50;
                                     setBestHand('$' + prevMoney + ' + $50 = $' + Math.round(holdMoney));
                                 }
                                 else {
-                                    const prevMoney = holdMoney;
+                                    const prevMoney = Math.round(holdMoney);
                                     setBestHand('$' + prevMoney + ' + $0 = $' + Math.round(holdMoney));
                                 }
                                 setTimeout(() => {
-                                    const prevMoney = holdMoney;
+                                    const prevMoney = Math.round(holdMoney);
                                     holdMoney -= globalAnte;
-                                    setBestHand('$' + prevMoney + ' - ' + '$' + globalAnte + ' Ante = $' + Math.round(holdMoney))
+                                    setBestHand('$' + prevMoney + ' - ' + '$' + Math.round(globalAnte) + ' Ante = $' + Math.round(holdMoney))
                                     setTimeout(() => {
 
                                         setBestHand('');

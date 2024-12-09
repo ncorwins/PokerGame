@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\public",
+    "\\src",
+    "\\src\\Deck"
   ],
   "SelectedNode": "\\src\\GlobalStateContext.tsx",
   "PreviewInSolutionExplorer": false

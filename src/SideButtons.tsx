@@ -11,6 +11,8 @@ const Store: React.FC = () => {
 
     const [helperText, setHelperText] = useState<string>(''); // To store the best hand
 
+    const startingAnte = 25;
+
         const containerStyle = {
             display: "flex",
             justifyContent: "flex-start",
@@ -25,7 +27,7 @@ const Store: React.FC = () => {
         setRoundsCompleted(helper += 1);
 
         var ante = globalAnte;
-        setGlobalAnte(Math.round(ante += (10 * (roundsCompleted+1))));
+        setGlobalAnte(Math.round(ante += (startingAnte * (roundsCompleted+1))));
 
         if (btn != null) {
             setHelperText('');
