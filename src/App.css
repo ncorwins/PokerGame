@@ -12,6 +12,8 @@
     --diamonds: #4a7dff;
     --clubs: #00a624;
     --spades: #2c3e50;
+    --yellow: #f4fce8;
+    --black: #000000;
     user-select: none; /* Disable text selection */
     -webkit-user-select: none; /* For WebKit browsers (Safari, Chrome) */
 }
@@ -20,7 +22,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: var(--red);
+    background-color: var(--black);
 }
 
 /* Set up the app container using Flexbox */

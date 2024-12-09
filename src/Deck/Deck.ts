@@ -2,10 +2,16 @@ import Card from './Card.ts';
 
 export class Deck {
     deck: Card[];
+    twosRemoved: boolean;
 
     constructor() {
         this.deck = [];
         this.createDeck();
+        this.twosRemoved = false;
+    }
+
+    setTwosRemoved(isRemoved: boolean) {
+        this.twosRemoved = isRemoved;
     }
 
     // Method to create the deck with 52 cards
@@ -31,12 +37,32 @@ export class Deck {
 
     // Method to deal a card from the deck
     deal(): Card | undefined {
-        return this.deck.pop();
+        // If twos are removed, filter out any '2' cards
+        const availableCards = this.twosRemoved
+            ? this.deck.filter(card => card.rank !== '2')
+            : this.deck;
+
+        if (availableCards.length === 0) {
+            console.log('No cards left to deal.');
+            return null;  // Handle case if no cards are available
+        }
+
+        const cardIndex = Math.floor(Math.random() * availableCards.length);
+        return availableCards[cardIndex];
     }
 
-    add(card) {
+
+    add(card: Card) {
+        console.log("Adding card back to the deck:", card);
+        //console.log(this.deck.length);
+        for (let i = 0; i < this.deck.length; i++) {
+            if (this.deck[i].value == card.value && this.deck[i].suit == card.suit) {
+                return;
+            }
+        }
         this.deck.push(card);
     }
+
 
     length() {
         return this.deck.length;

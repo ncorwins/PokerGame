@@ -1,3 +1,5 @@
+import Card from "./Card";
+
 // Define the possible hand rankings
 export const HandRankings = {
     HIGH_CARD: 0,
@@ -13,29 +15,11 @@ export const HandRankings = {
     INVALID: 10
 };
 
-// Define a card as an object
-interface Card {
-    suit: string;
-    rank: string;
-}
-
 // Function to evaluate the best hand
 export function evaluateHand(cards: Card[]): number {
 
-    var isFlush = false;
-    var isStraight = false;
-
-
-    if (cards.length > 5) {
-        return 10;
-    }
-    if (cards.length === 5) {
-        isFlush = isFlushHand(cards);
-        isStraight = isStraightHand(cards);
-    }
-
-
-
+    const isFlush = isFlushHand(cards);
+    const isStraight = isStraightHand(cards);
     const rankCounts = getRankCounts(cards);
     const pairs = Object.values(rankCounts).filter(count => count === 2).length;
     const threeOfAKind = Object.values(rankCounts).includes(3);

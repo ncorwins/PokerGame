@@ -3,18 +3,21 @@ import { GlobalStateProvider } from "./GlobalStateContext.tsx";
 import { DeckProvider } from './Deck/DeckContext.tsx';  // Corrected import
 import CardControls from './CardControls.tsx';
 import "./App.css";
+import SideButtons from './SideButtons.tsx';
+import Store from './Store.tsx';
+import { useGlobalState } from './GlobalStateContext.tsx';
 
 const App: React.FC = () => {
 
     return (
         <GlobalStateProvider>
-            <DeckProvider>
-                <div className="app-container">
-                    <div className="content">
+            <div className="app-container">
+                < SideButtons />
+                <div className="content">
+                    < Store />
                         < CardControls />
                     </div>
                 </div>
-            </DeckProvider>
         </GlobalStateProvider>
     );
 }

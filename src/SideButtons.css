@@ -1,0 +1,118 @@
+.btn {
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    margin-inline: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+    .btn:hover .btn-slide-show-text1 {
+        margin-left: 65px;
+    }
+
+.flash-slide {
+    border: none;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 180px;
+    height: 50px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+    .flash-slide::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: -80px;
+        height: 100px;
+        width: 70px;
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(20deg);
+    }
+
+    .flash-slide:hover::before {
+        left: 190px;
+        transition: 0.5s;
+    }
+
+
+
+.flash-slide2 {
+    border: none;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 180px;
+    height: 50px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+    .flash-slide2::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: -80px;
+        height: 100px;
+        width: 70px;
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(20deg);
+    }
+
+
+
+.flash-slide--red {
+    background: rgb(135, 0, 43);
+}
+
+.flash-slide--black {
+    background: rgb(51, 51, 51);
+}
+
+.flash-slide--white {
+    background: rgb(255, 255, 255);
+    color: black;
+}
+
+.flash-slide--green {
+    background: rgb(0, 163, 60);
+}
+.flash-slide--blue {
+    background: rgb(61, 135, 255);
+    margin-top: 150px;
+}
+
+.flash-slide--purple {
+    background: rgb(62, 53, 141);
+}
+
+.flash-slide--orange {
+    background: rgb(214, 158, 77);
+} 
+
+.storeWall {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0px; /* Optional, add spacing between buttons */
+}
+
+
+.bestHandText2 {
+    margin-top: 15px;
+    font-size: 12px;
+    color: white;
+}
