@@ -9,8 +9,8 @@
 
 /* Style for each individual card */
 .store-card {
-    width: 120px;
-    height: 180px;
+    width: 130px;
+    height: 195px;
     border-radius: 10px; /* Rounded corners */
     border: 3px solid #ddd; /* Light border color */
     background: linear-gradient(135deg, #f9f9f9 25%, #e0e0e0 100%); /* Gradient background */
@@ -42,7 +42,7 @@
 
 /* Value of the card (e.g., name) */
 .store-card-name {
-    font-size: 18px; /* Adjust font size */
+    font-size: 16px; /* Adjust font size */
     font-weight: bold;
     color: #333;
     font-family: 'Arial', sans-serif;

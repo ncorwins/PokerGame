@@ -47,6 +47,7 @@ const Store: React.FC = () => {
     }
 
     function purchaseItem() {
+        var holderC = storeCards;
         for (let i = 0; i < storeCards.length; i++) {
             if (storeCards[i].selected) {
                 storeCards[i].selected = false;
@@ -61,8 +62,8 @@ const Store: React.FC = () => {
                     var money = globalMoney;
                     money -= storeCards[i].cost;
                     setGlobalMoney(money);
-                    storeCards[i].level += 1;
-                    storeCards[i].purchased = true;
+                    holderC[i].level += 1;
+                    holderC[i].purchased = true;
                     setHelperText('Successfully Purchased ' + storeCards[i].name);
 
                     if (i === 3) {// extra card
@@ -79,7 +80,7 @@ const Store: React.FC = () => {
                         setDoubleQuestMoney(true);
                     }
 
-                    setStoreCards(storeCards);
+                    setStoreCards(holderC);
                 }
                 else {
                     setHelperText("You do not have enough money");
@@ -95,7 +96,8 @@ const Store: React.FC = () => {
             <button className="btn flash-slide flash-slide--black">Total {Math.round(globalPointScore)}</button>
             <button className="btn flash-slide flash-slide--green">${Math.round(globalMoney)} Bank</button>
             <button className="btn flash-slide flash-slide--red">${Math.round(globalAnte)} Ante</button>
-            <button className="btn flash-slide flash-slide--purple">Discards ({totalDiscards-usedDiscards}/{totalDiscards})</button>
+            {!showPlayButton2 && (
+                <button className="btn flash-slide flash-slide--purple">Discards ({totalDiscards - usedDiscards}/{totalDiscards})</button>)}
             {showPlayButton2 && (
                 <button id="playbutton" onClick={disablePlay} className="btn flash-slide flash-slide--blue"> Play </button>
             )}

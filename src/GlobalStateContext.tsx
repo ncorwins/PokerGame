@@ -132,7 +132,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
             id: 4
         },
         {
-            name: "x2 Quest Money",
+            name: "Quests x2",
             desc: "Get x2 Quest Money",
             cost: 3000,
             selected: false,
@@ -140,7 +140,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
             purchased: false,
             level: 0,
             id: 5
-        },
+        }
     ]);
 
 

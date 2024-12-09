@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Deck } from './Deck/Deck.ts';
 import Card from './Deck/Card.ts';
 import { evaluateHand, HandRankings } from './Deck/handEvaluator.ts'; // Import the evaluator
@@ -8,7 +8,6 @@ import { calculateHand } from './handCalculator.ts';
 import './Deck/CardDisplayContainer.css';
 import CardDisplay from './Deck/CardDisplay.tsx';
 import './CardControls.css';
-import Store from './Store';
 import PlayClick from './sound/PlayClick.tsx';
 import PlayPop from './sound/PlayPop.tsx';
 
@@ -16,13 +15,12 @@ const CardControls: React.FC = () => {
     const [deck] = useState(new Deck());
     const [dealtCards, setDealtCards] = useState<Card[]>([]);
     const [bestHand, setBestHand] = useState<string>(''); // To store the best hand
-    const {doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, roundsCompleted, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setGlobalCardCount, showPlayButton2, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
+    const {doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
 
     // State variables to manage button visibility
     const [showDiscardButton, setShowDiscardButton] = useState(false);
     const [showStartButton, setShowStartButton] = useState(false);
     const [gameStarted, setGameStarted] = useState(false);
-    const [] = useState(true);
     const [showPlayButton, setShowPlayButton] = useState(true);
     const ADDCARDSPEED = 80;
 
@@ -367,8 +365,6 @@ const CardControls: React.FC = () => {
 
         PlayClick();
 
-        const hold = points;
-        var holdMoney = hold;
         const wordInterval = 700;
 
         const questMoney = checkQuests();
@@ -398,10 +394,9 @@ const CardControls: React.FC = () => {
 
 
                 setTimeout(() => {
-                    setBestHand('$' + hold);
 
 
-                        setTimeout(() => {
+                    setTimeout(() => {                    /*
                             if (storeCards[0].purchased) {
                                 const prevMoney = Math.round(holdMoney);
                                 holdMoney = holdMoney * 1.2;
@@ -441,9 +436,19 @@ const CardControls: React.FC = () => {
 
                                 }, wordInterval)
 
-                        }, wordInterval)
+                        }, wordInterval)*/
+                        setBestHand('');
+                        if (globalMoney < 0) {
+                            gameOver();
+                            return;
+                        }
+
+                        setShowPlayButton2(true);
+
 
                     }, wordInterval)
+
+                    setBestHand('$' + Math.round(calculateMoney(points) + questMoney));
 
                 }, wordInterval)
 
