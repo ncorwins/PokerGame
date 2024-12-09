@@ -24,7 +24,7 @@ const Store: React.FC = () => {
     if (globalMoney < 0 && showPlayButton2) {
         return (
             <div className="loss-container">
-                <h1 className="lossText">You went broke ${globalMoney}</h1>
+                <h1 className="lossText">You went broke ${Math.round(globalMoney)}</h1>
                 <h1 className="lossText2"> Final Score {globalPointScore}</h1>
                 <h1 className="lossText3"> Refresh to play again</h1>
             </div>

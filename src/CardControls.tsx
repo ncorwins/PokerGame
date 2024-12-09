@@ -38,7 +38,7 @@ const CardControls: React.FC = () => {
     React.useEffect(() => {
         let dealing = false; // Lock to prevent multiple card deals at once
 
-
+        setSorting();
 
         if (dealtCards.length > 0) {
             console.log("CHECK!");
@@ -294,7 +294,7 @@ const CardControls: React.FC = () => {
                     }
 
                     holder[i].unlocked = true;
-                    console.log(holder[i].reward);  // Debugging the reward
+
                     setQuestArray(holder);  // Update quest array after unlocking
                     if (doubleQuestMoney) {
                         return holder[i].reward*2;
@@ -465,6 +465,23 @@ const CardControls: React.FC = () => {
         setDealtCards(updatedCards);
     };
 
+    function setSorting() {
+        var holder = sortByValue;
+        const elem = document.getElementById("sorter");
+        if (elem === null) {
+            return;
+        }
+
+        if (holder) {
+            elem.innerHTML = "Sort: Value";
+            elem.style.color = 'black';
+        }
+        else {
+            elem.innerHTML = "Sort: Suit";
+            elem.style.color = 'white';
+        }
+    }
+
     function updateSorting() {
         var holder = sortByValue;
         holder = !holder;
@@ -531,7 +548,7 @@ const CardControls: React.FC = () => {
                 ))}
             </div>
             {(showPlayButton || showDiscardButton) && (
-                <button id="sorter" className="btn btn-moving-gradient btn-moving-gradient--green" onClick={updateSorting}>Sort: Value</button>)}
+                <button id="sorter" className="btn btn-moving-gradient btn-moving-gradient--green" onClick={updateSorting}></button>)}
             <h2 className="bestHandText">{bestHand}</h2>
         </div>
     );
