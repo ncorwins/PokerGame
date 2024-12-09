@@ -15,6 +15,8 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
     const [showPlayButton2, setShowPlayButton2] = useState<boolean>(false);
     const [twosRemoved, setTwosRemoved] = useState<boolean>(false);
     const [generateCards, setGenerateCards] = useState<boolean>(true);
+    const [sortByValue, setSortByValue] = useState<boolean>(true);
+    const [sorted, setSorted] = useState<boolean>(true);
     const [showBuyButton, setShowBuyButton] = useState<boolean>(false);
     const [globalAnte, setGlobalAnte] = useState<number>(25);
     const [storeCards, setStoreCards] = useState<any[]>([
@@ -97,7 +99,11 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
             totalDiscards,
             setTotalDiscards,
             usedDiscards,
-            setUsedDiscards
+            setUsedDiscards,
+            sortByValue,
+            setSortByValue,
+            sorted,
+            setSorted
         }}>
             {children}
         </GlobalStateContext.Provider>

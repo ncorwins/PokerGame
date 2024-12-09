@@ -67,3 +67,27 @@
     margin-bottom: 10px; /* Space between value and suit */
     background: none;
 }
+
+.lossText {
+    font-size: 55px; /* Adjust font size */
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 20px;
+}
+.lossText2 {
+    font-size: 45px; /* Adjust font size */
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 20px;
+}
+.lossText3 {
+    font-size: 35px; /* Adjust font size */
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 20px;
+}
+
+
+.loss-container {
+    margin: 50px;
+}

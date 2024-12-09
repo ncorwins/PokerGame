@@ -14,86 +14,143 @@ const CardControls: React.FC = () => {
     const [deck] = useState(new Deck());
     const [dealtCards, setDealtCards] = useState<Card[]>([]);
     const [bestHand, setBestHand] = useState<string>(''); // To store the best hand
-    const { usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setGlobalCardCount, showPlayButton2, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
+    const { setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setGlobalCardCount, showPlayButton2, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
 
     // State variables to manage button visibility
     const [showDiscardButton, setShowDiscardButton] = useState(false);
     const [] = useState(true);
     const [showPlayButton, setShowPlayButton] = useState(true);
-
     const ADDCARDSPEED = 80;
+
+
+
 
     React.useEffect(() => {
         let dealing = false; // Lock to prevent multiple card deals at once
 
-        if (!twosRemoved) {
-            if (storeCards[2].purchased) {
-                setTwosRemoved(true);  // Toggle the twosRemoved state
-                deck.setTwosRemoved(true);  // Update deck state as well
-                console.log(deck);
-            }
+
+
+        if (dealtCards.length > 0) {
+            console.log("CHECK!");
+            const sortedCards = sortByValue
+                ? sortCardsByValue(dealtCards)
+                : sortCardsBySuit(dealtCards);
+
+            setDealtCards(sortedCards);
         }
 
 
+
+        if (!twosRemoved && storeCards[2]?.purchased) {
+            setTwosRemoved(true); // Toggle the twosRemoved state
+            deck.setTwosRemoved(true); // Update deck state as well
+            console.log(deck);
+        }
+
         const interval = setInterval(() => {
-            if (!generateCards) {
-                return;
-            }
+            if (!generateCards) return;
+
             deck.shuffle();
             if (dealtCards.length < globalCardCount && !dealing) {
                 dealing = true; // Lock dealing
-                var card = deck.deal();
+                const card = deck.deal();
 
                 if (card) {
                     setDealtCards(prevDealtCards => {
-                        const newDealtCards = [...prevDealtCards];
-
                         // Ensure no duplicate cards
-                        const isDuplicate = newDealtCards.some(
+                        const isDuplicate = prevDealtCards.some(
                             dealtCard =>
                                 dealtCard.rank === card.rank && dealtCard.suit === card.suit
                         );
 
                         if (!isDuplicate) {
-                            newDealtCards.push(card);
-                        } else {
-                            console.warn("Duplicate card detected:", card);
+                            const newDealtCards = [...prevDealtCards, card];
+
+                            // Sort the cards based on the suitSorting flag
+                            const suitSorting = !sortByValue; // Change this to true to sort by suit
+                            return suitSorting
+                                ? sortCardsBySuit(newDealtCards)
+                                : sortCardsByValue(newDealtCards);
                         }
 
-                        dealing = false; // Unlock dealing after updating state
-                        return newDealtCards;
+                        console.warn("Duplicate card detected:", card);
+                        return prevDealtCards; // No update if duplicate
                     });
                 } else {
                     console.error("Deck is empty!");
-                    dealing = false; // Unlock dealing even if no card
-                    //clearInterval(interval); // Stop updating if the deck is empty
                 }
+                dealing = false; // Unlock dealing
             }
         }, ADDCARDSPEED);
 
-        return () => clearInterval(interval); // Cleanup interval on unmount
-    }, [dealtCards, globalCardCount, deck, generateCards]);
+        return () => {
+            clearInterval(interval); // Cleanup interval on unmount
+        };
+    }, [dealtCards.length, globalCardCount, deck, generateCards, twosRemoved, sortByValue]);
 
+    // Sorting Functions
+    const suitOrder: Record<string, number> = {
+        spades: 4,
+        hearts: 3,
+        diamonds: 2,
+        clubs: 1,
+    };
 
+    const sortCardsBySuit = (cards: Card[]): Card[] => {
+        return [...cards].sort((a, b) => {
+            const suitComparison = suitOrder[b.suit.toLowerCase()] - suitOrder[a.suit.toLowerCase()];
+            if (suitComparison !== 0) {
+                return suitComparison; // Sort by suit
+            }
+            return b.value - a.value; // If suits are the same, sort by value
+        });
+    };
 
+    const sortCardsByValue = (cards: Card[]): Card[] => {
+        return [...cards].sort((a, b) => b.value - a.value);
+    };
 
+    function gameOver() {
+        setShowPlayButton(false);
+        setShowDiscardButton(false);
+        //setBestHand('You have lost');
+    }
 
-    if (dealtCards.length == globalCardCount) {
+    if (dealtCards.length === globalCardCount) {
+
+        if (globalMoney < 0) {
+            return;
+        }
+
+        if (totalDiscards !== usedDiscards) {
+            if (!showDiscardButton) {
+                setShowDiscardButton(true);
+            }
+        }
+
         var count = 0;
+
         for (let i = 0; i < dealtCards.length; i++) {
             if (dealtCards[i].selected) {
                 count++;
             }
         }
-        if (count == 5 && (showPlayButton === false)) {
-            setShowPlayButton(true);
+
+        if (count === 5 || totalDiscards === usedDiscards) {
+            if (!showPlayButton) {
+                setShowPlayButton(true);
+            }
+           // 
         }
-        if (count != 5 && showPlayButton) {
-            setShowPlayButton(false);
+
+        if (count !== 5 && showDiscardButton) {
+            if (showPlayButton) {
+                setShowPlayButton(false);
+            }
         }
-        if (count >= 0 && (showDiscardButton === false)) {
-            setShowDiscardButton(true);
-        }
+
+
+
     }
     else {
         //if (showDealButton === false) {
@@ -111,7 +168,7 @@ const CardControls: React.FC = () => {
         const selectedCards = dealtCards.filter(card => card.selected);
         if (selectedCards.length !== 5) {
             setBestHand('Invalid. Please select 5 cards.');
-            return;
+            return (0);
         }
 
         const handRank = evaluateHand(selectedCards);
@@ -155,7 +212,7 @@ const CardControls: React.FC = () => {
     };
 
     const discardSelected = () => {
-        if (totalDiscards == usedDiscards) {
+        if (totalDiscards === usedDiscards) {
             return;
         }
 
@@ -163,13 +220,14 @@ const CardControls: React.FC = () => {
         const removedCards = dealtCards.filter(card => card.selected);
 
         setBestHand('');
-        if (removedCards.length == 0) {
+        if (removedCards.length === 0) {
             setBestHand('Please select at least one card.');
             return;
         }
         var h = usedDiscards;
 
-        setUsedDiscards(h += 1);
+        setUsedDiscards(h + 1);
+
 
         console.log(remainingCards);
         console.log(removedCards);
@@ -205,6 +263,11 @@ const CardControls: React.FC = () => {
 
     const playHand = () => {
         const points = evaluateBestHand();
+
+        if (points === 0) {
+            return;
+        }
+
         const hold = points;
         var holdMoney = hold;
         const wordInterval = 700;
@@ -259,6 +322,12 @@ const CardControls: React.FC = () => {
                                     setBestHand('$' + prevMoney + ' - ' + '$' + Math.round(globalAnte) + ' Ante = $' + Math.round(holdMoney))
                                     setTimeout(() => {
 
+
+                                        if (globalMoney < 0) {
+                                            gameOver();
+                                            return;
+                                        }
+
                                         setBestHand('');
                                         setShowPlayButton2(true);
 
@@ -286,6 +355,22 @@ const CardControls: React.FC = () => {
         );
         setDealtCards(updatedCards);
     };
+
+    function updateSorting() {
+        var holder = sortByValue;
+        holder = !holder;
+
+        if (holder) {
+            document.getElementById("sorter").innerHTML = "Sort: Value";
+            document.getElementById("sorter").style.color = 'black';
+        }
+        else {
+            document.getElementById("sorter").innerHTML = "Sort: Suit";
+            document.getElementById("sorter").style.color = 'white';
+        }
+
+        setSortByValue(holder);
+    }
 
     return (
         <div>
@@ -316,7 +401,8 @@ const CardControls: React.FC = () => {
                     />
                 ))}
             </div>
-
+            {(showPlayButton || showDiscardButton) && (
+                <button id="sorter" className="btn btn-moving-gradient btn-moving-gradient--green" onClick={updateSorting}>Sort: Value</button>)}
             <h2 className="bestHandText">{bestHand}</h2>
         </div>
     );

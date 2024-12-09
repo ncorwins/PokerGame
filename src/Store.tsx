@@ -4,7 +4,7 @@ import { useGlobalState } from './GlobalStateContext.tsx';
 import './Store.css';
 
 const Store: React.FC = () => {
-    const { storeCards, setStoreCards, showPlayButton2, setShowBuyButton } = useGlobalState();
+    const { globalPointScore, globalMoney, storeCards, setStoreCards, showPlayButton2, setShowBuyButton } = useGlobalState();
 
     const setSelected = (card: any) => {
         const updatedCards = storeCards.map(c =>
@@ -13,11 +13,22 @@ const Store: React.FC = () => {
         setStoreCards(updatedCards);
         setShowBuyButton(false);
         for (let i = 0; i < updatedCards.length; i++) {
-            if (updatedCards[i].selected) {
+            if (updatedCards[i].selected && updatedCards[i].purchased === false) {
                 setShowBuyButton(true);
             }
         }
     };
+
+    if (globalMoney < 0 && showPlayButton2) {
+        return (
+            <div className="loss-container">
+                <h1 className="lossText">You went broke ${globalMoney}</h1>
+                <h1 className="lossText2"> Final Score {globalPointScore}</h1>
+                <h1 className="lossText3"> Refresh to play again</h1>
+            </div>
+        );
+    }
+
 
     if (showPlayButton2) {
         return (

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import './SideButtons.css';
 import { useGlobalState } from './GlobalStateContext.tsx';
-import CardControls from './CardControls.tsx';
 import { useState } from 'react';
-
 
 const Store: React.FC = () => {
 
-    const { usedDiscards, setUsedDiscards, totalDiscards, setTotalDiscards, roundsCompleted, setRoundsCompleted, globalAnte, setGlobalAnte, globalCardCount, setGlobalCardCount, setGlobalMoney, showPlayButton2, setShowPlayButton2, setGenerateCards, globalPointScore, globalMoney, storeCards, setStoreCards, showBuyButton, setShowBuyButton } = useGlobalState();
+    const { usedDiscards, totalDiscards, setTotalDiscards, roundsCompleted, setRoundsCompleted, globalAnte, setGlobalAnte, globalCardCount, setGlobalCardCount, setGlobalMoney, showPlayButton2, setShowPlayButton2, setGenerateCards, globalPointScore, globalMoney, storeCards, setStoreCards, showBuyButton, setShowBuyButton } = useGlobalState();
 
     const [helperText, setHelperText] = useState<string>(''); // To store the best hand
 
@@ -23,6 +21,12 @@ const Store: React.FC = () => {
 
     function disablePlay() { // restart game
         const btn = document.getElementById("playbutton");
+
+        if (globalMoney < 0) {
+            return;
+        }
+
+
         var helper = roundsCompleted;
         setRoundsCompleted(helper += 1);
 
@@ -30,10 +34,13 @@ const Store: React.FC = () => {
         setGlobalAnte(Math.round(ante += (startingAnte * (roundsCompleted+1))));
 
         if (btn != null) {
-            setHelperText('');
-            setShowPlayButton2(false);
-            setShowBuyButton(false);
-            setGenerateCards(true);
+            if (globalMoney >= 0) {
+                setHelperText('');
+                setShowPlayButton2(false);
+                setShowBuyButton(false);
+                setGenerateCards(true);
+            }
+
         }
     }
 
@@ -55,14 +62,14 @@ const Store: React.FC = () => {
                     storeCards[i].purchased = true;
                     setHelperText('Successfully Purchased ' + storeCards[i].name);
 
-                    if (i == 3) {// extra card
+                    if (i === 3) {// extra card
                         var holder = globalCardCount;
                         setGlobalCardCount(holder += 1);
                     }
 
-                    if (i == 4) { // extra discard
-                        var holder = totalDiscards;
-                        setTotalDiscards(holder += 1);
+                    if (i === 4) { // extra discard
+                        var holder2 = totalDiscards;
+                        setTotalDiscards(holder2 += 1);
                     }
 
                     setStoreCards(storeCards);
@@ -73,6 +80,8 @@ const Store: React.FC = () => {
             }
         }
     }
+
+
 
     return (
         <div style={containerStyle} className="storeWall">
