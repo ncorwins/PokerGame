@@ -340,7 +340,7 @@ const CardControls: React.FC = () => {
                 if (holder[i].level < h) {
                     holder[i].level = h;
                     holder[i].unlocked = false;
-                    holder[i].reward *= 2;
+                    holder[i].reward *= h;
                 }
             }
             setQuestLevel(h);
@@ -538,7 +538,7 @@ const CardControls: React.FC = () => {
                     className="btn btn-moving-gradient btn-moving-gradient--blue"
                     onClick={startGame}
                 >
-                    Play Hand
+                    Start Game
                 </button>
             )}
 
