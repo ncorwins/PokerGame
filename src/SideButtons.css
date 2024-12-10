@@ -102,12 +102,13 @@
 
 .flash-slide--orange {
     background: rgb(214, 158, 77);
-} 
+}
 
 .storeWall {
     display: flex;
     flex-direction: column; /* Stack buttons vertically */
     gap: 0px; /* Optional, add spacing between buttons */
+    background: #2e2e2e;
 }
 
 

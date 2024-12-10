@@ -140,7 +140,7 @@
     border: none;
     background-size: 300% 100%;
     border-radius: 50px;
-    margin-top: 75px;
+    margin-top: 30px;
     margin-bottom: 15px;
 }
 
@@ -153,3 +153,7 @@
     background-image: linear-gradient(90deg, rgb(130, 237, 155), rgb(130, 230, 237), rgb(130, 237, 191), rgb(128, 237, 153));
     box-shadow: rgb(130, 230, 237) 0px 4px 15px 0px;
 }  
+
+
+
+

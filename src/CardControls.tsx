@@ -17,7 +17,7 @@ const CardControls: React.FC = () => {
     const [deck] = useState(new Deck());
     const [dealtCards, setDealtCards] = useState<Card[]>([]);
     const [bestHand, setBestHand] = useState<string>(''); // To store the best hand
-    const {hasPlayed, setHasPlayed, doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
+    const {setGameStarted2, hasPlayed, setHasPlayed, doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
 
     // State variables to manage button visibility
     const [showDiscardButton, setShowDiscardButton] = useState(false);
@@ -57,6 +57,7 @@ const CardControls: React.FC = () => {
                 : sortCardsBySuit(dealtCards);
 
             setDealtCards(sortedCards);
+            setGameStarted2(true);
         }
 
 
@@ -140,7 +141,9 @@ const CardControls: React.FC = () => {
     }
 
     if (gameStarted) {
-        if (dealtCards.length === globalCardCount) {
+
+
+        if (dealtCards != null && dealtCards.length  == globalCardCount) {
 
 
             if (globalMoney < 0) {
@@ -423,7 +426,7 @@ const CardControls: React.FC = () => {
             }, (popDelay * 5))
             setTimeout(() => {
                 PlayCollect();
-            }, (popDelay * 11))
+            }, (popDelay * 10))
         }, 800)
 
 
@@ -514,6 +517,7 @@ const CardControls: React.FC = () => {
         PlayClick();
 
         setDealtCards(updatedCards);
+        setBestHand('');
     };
 
     function setSorting() {

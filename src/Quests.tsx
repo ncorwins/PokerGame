@@ -30,19 +30,22 @@ const Quests: React.FC = () => {
     }
 
     return (
-        <div className="questWall">
-            {filteredQuests.map((quest, index) => (
-                <div
-                    key={index}
-                    className={`btn-flip-side ${quest.unlocked ? 'btn-flip-side--green' : 'btn-flip-side--light-red'}`}
-                    onClick={() => handleQuestClick(index)} // Toggle the quest unlocked state on click
-                >
-                    <span>{quest.name} (Level: {quest.level})</span>
-                    <span id="reward">Reward: ${doubleQuestMoney ? (quest.reward * 2) : (quest.reward)}</span>
-                </div>
-            ))}
+        <div className="backDiv">
+            <div className="questWall backDiv">
+                {filteredQuests.map((quest, index) => (
+                    <div
+                        key={index}
+                        className={` backDiv btn-flip-side ${quest.unlocked ? 'btn-flip-side--green' : 'btn-flip-side--light-red'}`}
+                        onClick={() => handleQuestClick(index)} // Toggle the quest unlocked state on click
+                    >
+                        <span>{quest.name} (Level: {quest.level})</span>
+                        <span id="reward">Reward: ${doubleQuestMoney ? (quest.reward * 2) : (quest.reward)}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
+
 };
 
 export default Quests;

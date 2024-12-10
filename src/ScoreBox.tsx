@@ -13,7 +13,7 @@ interface ScoreBoxProps {
 }
 
 const ScoreBox: React.FC<ScoreBoxProps> = ({ dealtCards }) => {
-    const { questArray, setQuestArray, doubleQuestMoney, questLevel, globalAnte } = useGlobalState();
+    const { questArray, globalCardCount, setQuestArray, doubleQuestMoney, questLevel, globalAnte } = useGlobalState();
     // Track if the button should be visible
     const [isButtonVisible, setIsButtonVisible] = useState(false);
 
@@ -65,7 +65,7 @@ const ScoreBox: React.FC<ScoreBoxProps> = ({ dealtCards }) => {
 
     useEffect(() => {
         // Check if dealtCards is null or has a length less than 8
-        if (dealtCards == null || dealtCards.length < 8) {
+        if (dealtCards == null || dealtCards.length < 1) {
             dealtCards = [];
             setIsButtonVisible(false);
         } else {
@@ -97,41 +97,45 @@ const ScoreBox: React.FC<ScoreBoxProps> = ({ dealtCards }) => {
     // Determine the button color based on the result value
     const resultButtonClass = resultValue >= 0 ? "btn-success" : "btn-error"; // You can use Tailwind's built-in colors or custom ones
 
+    const minWH = 45;
+    const fontSizeVar = 15;
+    const marginSize = 1.5;
+
     return (
-        <div className="scoreBox-card-container">
+        <div className="scoreBox-card-container" style={{marginTop: '40px'} }>
             <div>
                 {isButtonVisible && (
                     <div>
                         <div className="join">
-                            <button id="basePoints" className="btn rounded-full join-item" style={{ margin: '1px' }}>
+                            <button id="basePoints" className="btn rounded-full join-item largerButton" style={{ margin: `${marginSize}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', fontSize: `${fontSizeVar}` + 'px' }}>
                                 {totalPoints}
                             </button>
 
-                            <button className="btn rounded-full join-item" style={{ margin: '1px' }}>X</button>
+                            <button className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>X</button>
 
-                            <button id="baseMult" className="btn rounded-full join-item" style={{ margin: '1px' }}>{totalMulti}</button>
+                            <button id="baseMult" className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>{totalMulti}</button>
 
-                            <button className="btn rounded-full join-item" style={{ margin: '1px' }}>=</button>
+                            <button className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>=</button>
 
-                            <button id="baseMult" className="btn rounded-full join-item" style={{ margin: '1px' }}>{(totalMulti * totalPoints)}</button>
+                            <button id="baseMult" className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>{(totalMulti * totalPoints)}</button>
                         </div>
                         <div style={{ margin: '10px' }}>
                             <div className="join">
                                 <div className="join">
-                                    <button className="btn rounded-full join-item" style={{ margin: '1px', color: 'red' }}>Ante</button>
-                                    <button className="btn rounded-full join-item" style={{ margin: '1px', color: 'red' }}>{globalAnte}</button>
+                                    <button className="btn rounded-full join-item" style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', color: 'red' }}>Ante</button>
+                                    <button className="btn rounded-full join-item" style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', color: 'red' }}>{globalAnte}</button>
                                 </div>
-                                <button className="btn rounded-full join-item" style={{ margin: '1px', color: 'green' }}>Bonus</button>
-                                <button className="btn rounded-full join-item" style={{ margin: '1px', color: 'green' }}>{questBonus}</button>
+                                <button className="btn rounded-full join-item" style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', color: 'green' }}>Bonus</button>
+                                <button className="btn rounded-full join-item" style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', color: 'green' }}>{questBonus}</button>
                             </div>
                         </div>
                         <div style={{ margin: '10px' }}>
                             <div className="join">
-                                <button className="btn rounded-full join-item" style={{ margin: '1px', color: 'white', lineHeight: '.5', fontSize: '15px' }}>+<br/> -</button>
+                                <button className="btn rounded-full join-item" style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', color: 'white', lineHeight: '.5' }}>+<br /> -</button>
                                 <button
                                     id="result"
                                     className={`btn rounded-full join-item ${resultButtonClass}`} // Apply dynamic class
-                                    style={{ margin: '1px', textIndent: '-5px' }}
+                                    style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', textIndent: '-5px' }}
                                 >{resultValue}
                                 </button>
                             </div>

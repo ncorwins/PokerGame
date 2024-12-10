@@ -6,7 +6,7 @@ const GlobalStateContext = createContext<any>(null);
 
 // Create a provider component
 export const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
-    const [globalCardCount, setGlobalCardCount] = useState<number>(8);
+    const [globalCardCount, setGlobalCardCount] = useState<number>(7);
     const [globalPointScore, setGlobalPointScore] = useState<number>(0);
     const [totalDiscards, setTotalDiscards] = useState<number>(2);
     const [usedDiscards, setUsedDiscards] = useState<number>(0);
@@ -22,6 +22,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
     const [doubleQuestMoney, setDoubleQuestMoney] = useState<boolean>(false);
     const [globalAnte, setGlobalAnte] = useState<number>(25);
     const [questLevel, setQuestLevel] = useState<number>(1);
+    const [gameStarted2, setGameStarted2] = useState<boolean>(false);
     const [questArray, setQuestArray] = useState<any[]>([
         {
             name: 'Two Pair',
@@ -196,7 +197,9 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
             doubleQuestMoney,
             setDoubleQuestMoney,
             hasPlayed,
-            setHasPlayed
+            setHasPlayed,
+            gameStarted2,
+            setGameStarted2
         }}>
             {children}
         </GlobalStateContext.Provider>

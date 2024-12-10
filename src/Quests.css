@@ -1,4 +1,10 @@
 /* Ensure no other button styles affect this specific button */
+.backDiv {
+    background: #1c1c1c;
+}
+
+
+
 .questWall .btn-flip-side {
     position: relative; /* For positioning the child elements */
     width: 200px; /* Define width for the button */
@@ -59,6 +65,7 @@
 .questWall .btn-flip-side--green > span {
     border: 5px solid rgb(34, 193, 34); /* Green border */
     border-radius: 10px;
+
 }
 
     .questWall .btn-flip-side--green > span:first-child {

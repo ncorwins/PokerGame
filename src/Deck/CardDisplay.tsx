@@ -32,7 +32,7 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card, index, onClick, hasPlay
 
     const STACK_DISTANCE = -95;
     const targetY = 195;
-    const targetX = 215 + index * STACK_DISTANCE;
+    const targetX = 210 + index * STACK_DISTANCE;
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -118,7 +118,11 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card, index, onClick, hasPlay
                         {getSuitSymbol(card.suit)}
                     </div>
                 </div>
-                <div className="card-points">{card.points}</div>
+                <div className={`card-points ${!card.selected ? 'opacity-0' : ''}`}>
+                    {card.points}
+                </div>
+
+
             </div>
             )
 

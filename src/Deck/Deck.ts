@@ -22,7 +22,7 @@ export class Deck {
 
         for (let suit of suits) {
             for (let i = 0; i < ranks.length; i++) {
-                this.deck.push(new Card(suit, values[i], ranks[i], false, (values[i]-1)));
+                this.deck.push(new Card(suit, values[i], ranks[i], false, (values[i])));
             }
         }
     }
