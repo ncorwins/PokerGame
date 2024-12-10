@@ -10,13 +10,14 @@ import CardDisplay from './Deck/CardDisplay.tsx';
 import './CardControls.css';
 import PlayClick from './sound/PlayClick.tsx';
 import PlayPop from './sound/PlayPop.tsx';
+import PlayCollect from './sound/PlayCollect.tsx';
 import ScoreBox from './ScoreBox.tsx';
 
 const CardControls: React.FC = () => {
     const [deck] = useState(new Deck());
     const [dealtCards, setDealtCards] = useState<Card[]>([]);
     const [bestHand, setBestHand] = useState<string>(''); // To store the best hand
-    const {doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
+    const {hasPlayed, setHasPlayed, doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
 
     // State variables to manage button visibility
     const [showDiscardButton, setShowDiscardButton] = useState(false);
@@ -370,14 +371,14 @@ const CardControls: React.FC = () => {
     }
 
 
-
-
     const playHand = () => {
         const points = evaluateBestHand();
 
         if (points === 0) {
             return;
         }
+
+        setHasPlayed(true);
 
         PlayClick();
 
@@ -399,6 +400,33 @@ const CardControls: React.FC = () => {
         updateQuests();
 
         setGlobalPointScore(newScore);
+
+        const popDelay = 140;
+
+        const openAnimTime = 4;
+
+        setTimeout(() => {
+            setTimeout(() => {
+                PlayPop();
+            }, (popDelay))
+            setTimeout(() => {
+                PlayPop();
+            }, (popDelay * 2))
+            setTimeout(() => {
+                PlayPop();
+            }, (popDelay * 3))
+            setTimeout(() => {
+                PlayPop();
+            }, (popDelay * 4))
+            setTimeout(() => {
+                PlayPop();
+            }, (popDelay * 5))
+            setTimeout(() => {
+                PlayCollect();
+            }, (popDelay * 11))
+        }, 800)
+
+
 
         setTimeout(() => {
             deck.reset();
@@ -472,7 +500,7 @@ const CardControls: React.FC = () => {
 
             }, wordInterval)
 
-        }, 1000);
+        }, (wordInterval * openAnimTime));
 
         
         // Function to use async/await with delay
@@ -531,6 +559,7 @@ const CardControls: React.FC = () => {
         }
     }
 
+
     return (
         <div>
             {showStartButton && (
@@ -567,9 +596,11 @@ const CardControls: React.FC = () => {
             <div className="card-container">
                 {dealtCards.map((card, index) => (
                     <CardDisplay
-                        key={index}
-                        card={card}
-                        onClick={() => setSelected(card)}
+                        key={index}         // This will use the index as the key
+                        card={card}         // Pass the card object
+                        index={index}       // Pass the index to the CardDisplay component
+                        onClick={() => setSelected(card)}  // Your onClick handler
+                        hasPlayed={hasPlayed}  // Pass the global state for the card's play state
                     />
                 ))}
             </div>

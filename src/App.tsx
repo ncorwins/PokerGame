@@ -8,6 +8,7 @@ import Store from './Store.tsx';
 import { useGlobalState } from './GlobalStateContext.tsx';
 import Quests from './Quests.tsx';
 import ScoreBox from './ScoreBox.tsx';
+//import AnimatedBox from './notes/AnimatedBox.tsx';
 
 const App: React.FC = () => {
 

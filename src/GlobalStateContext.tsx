@@ -16,6 +16,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
     const [twosRemoved, setTwosRemoved] = useState<boolean>(false);
     const [generateCards, setGenerateCards] = useState<boolean>(true);
     const [sortByValue, setSortByValue] = useState<boolean>(true);
+    const [hasPlayed, setHasPlayed] = useState<boolean>(false);
     const [sorted, setSorted] = useState<boolean>(true);
     const [showBuyButton, setShowBuyButton] = useState<boolean>(false);
     const [doubleQuestMoney, setDoubleQuestMoney] = useState<boolean>(false);
@@ -193,7 +194,9 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
             questLevel,
             setQuestLevel,
             doubleQuestMoney,
-            setDoubleQuestMoney
+            setDoubleQuestMoney,
+            hasPlayed,
+            setHasPlayed
         }}>
             {children}
         </GlobalStateContext.Provider>

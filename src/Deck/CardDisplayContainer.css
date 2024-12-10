@@ -29,9 +29,10 @@
         transform: translateY(-50px);
     }
 
+
     .card:hover {
-        transform: translateY(-15px); /* Slightly lift the card */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+        transform: translateY(-15px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     }
     /* Points text above the card */
     .card-points {

@@ -6,7 +6,7 @@ import PlayClick from './sound/PlayClick.tsx';
 
 const Store: React.FC = () => {
 
-    const { setDoubleQuestMoney, usedDiscards, totalDiscards, setTotalDiscards, roundsCompleted, setRoundsCompleted, globalAnte, setGlobalAnte, globalCardCount, setGlobalCardCount, setGlobalMoney, showPlayButton2, setShowPlayButton2, setGenerateCards, globalPointScore, globalMoney, storeCards, setStoreCards, showBuyButton, setShowBuyButton } = useGlobalState();
+    const { setHasPlayed, setDoubleQuestMoney, usedDiscards, totalDiscards, setTotalDiscards, roundsCompleted, setRoundsCompleted, globalAnte, setGlobalAnte, globalCardCount, setGlobalCardCount, setGlobalMoney, showPlayButton2, setShowPlayButton2, setGenerateCards, globalPointScore, globalMoney, storeCards, setStoreCards, showBuyButton, setShowBuyButton } = useGlobalState();
 
     const [helperText, setHelperText] = useState<string>(''); // To store the best hand
 
@@ -22,6 +22,8 @@ const Store: React.FC = () => {
 
     function disablePlay() { // restart game
         const btn = document.getElementById("playbutton");
+
+        setHasPlayed(false);
 
         if (globalMoney < 0) {
             return;
