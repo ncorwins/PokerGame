@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         extend: {}, // Add your Tailwind customizations here
     },
-    plugins: [require("daisyui")], // Include DaisyUI as a plugin
+    plugins: [require("daisyui"), require("framer-motion")], // Include DaisyUI as a plugin
     daisyui: {
         themes: ["black"],
     },
