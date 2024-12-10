@@ -93,16 +93,16 @@ const Store: React.FC = () => {
 
     return (
         <div style={containerStyle} className="storeWall">
-            <button className="btn flash-slide flash-slide--black">Total {Math.round(globalPointScore)}</button>
-            <button className="btn flash-slide flash-slide--green">${Math.round(globalMoney)} Bank</button>
-            <button className="btn flash-slide flash-slide--red">${Math.round(globalAnte)} Ante</button>
+            <button className="btn flash-slide flash-slide--black" style={{ borderRadius: '10px' }}>Total {Math.round(globalPointScore)}</button>
+            <button className="btn flash-slide flash-slide--green" style={{ borderRadius: '10px' }}>${Math.round(globalMoney)} Bank</button>
+            <button className="btn flash-slide flash-slide--red" style={{ borderRadius: '10px' }}>${Math.round(globalAnte)} Ante</button>
             {!showPlayButton2 && (
-                <button className="btn flash-slide flash-slide--purple">Discards ({totalDiscards - usedDiscards}/{totalDiscards})</button>)}
+                <button className="btn flash-slide flash-slide--purple" style={{ borderRadius: '10px' }}>Discards ({totalDiscards - usedDiscards}/{totalDiscards})</button>)}
             {showPlayButton2 && (
-                <button id="playbutton" onClick={disablePlay} className="btn flash-slide flash-slide--blue"> Play </button>
+                <button id="playbutton" onClick={disablePlay} className="btn flash-slide flash-slide--blue" style={{ borderRadius: '10px' }}> Play </button>
             )}
             {showBuyButton && (
-                <button id="purchaseItem" onClick={purchaseItem} className="btn flash-slide flash-slide--orange"> Buy </button>
+                <button id="purchaseItem" onClick={purchaseItem} className="btn flash-slide flash-slide--orange" style={{ borderRadius: '10px' }}> Buy </button>
             )}
             <h2 className="bestHandText2">{helperText}</h2>
 

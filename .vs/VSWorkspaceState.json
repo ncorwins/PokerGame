@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\src"
+    "\\src",
+    "\\src\\Deck"
   ],
-  "SelectedNode": "\\src\\CardControls.tsx",
+  "SelectedNode": "\\src\\GlobalStateContext.tsx",
   "PreviewInSolutionExplorer": false
 }

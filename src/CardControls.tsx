@@ -538,6 +538,7 @@ const CardControls: React.FC = () => {
                     id="play"
                     className="btn btn-moving-gradient btn-moving-gradient--blue"
                     onClick={startGame}
+                    style={{ borderRadius: '10px' }}
                 >
                     Start Game
                 </button>
@@ -548,6 +549,7 @@ const CardControls: React.FC = () => {
                     id="discard"
                     className="btn btn-moving-gradient-2 btn-moving-gradient--red"
                     onClick={discardSelected}
+                    style={{ borderRadius: '10px' }}
                 >
                     Discard
                 </button>
@@ -557,6 +559,7 @@ const CardControls: React.FC = () => {
                     id="play"
                     className="btn btn-moving-gradient-3 btn-moving-gradient--purple"
                     onClick={playHand}
+                    style={{borderRadius: '10px' }}
                 >
                     Play Hand
                 </button>
@@ -571,7 +574,7 @@ const CardControls: React.FC = () => {
                 ))}
             </div>
             {(showPlayButton || showDiscardButton) && (
-                <button id="sorter" className="btn btn-moving-gradient btn-moving-gradient--green" onClick={updateSorting}></button>)}
+                <button id="sorter" className="btn btn-moving-gradient btn-moving-gradient--green" onClick={updateSorting} style={{ borderRadius: '10px' }}></button>)}
             <h2 className="bestHandText">{bestHand}</h2>
             <ScoreBox dealtCards={dealtCards} />
 
