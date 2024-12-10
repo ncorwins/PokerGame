@@ -8,7 +8,8 @@
     "react-daisyui": "^5.0.5",
     "react-dom": "^19.0.0",
     "react-scripts": "^5.0.1",
-    "tailwindcss": "^3.4.16"
+    "tailwindcss": "^3.4.16",
+    "framer-motion": "^11.13.5"
   },
   "scripts": {
     "start": "react-scripts start",
