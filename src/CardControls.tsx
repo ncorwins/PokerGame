@@ -340,7 +340,8 @@ const CardControls: React.FC = () => {
                 if (holder[i].level < h) {
                     holder[i].level = h;
                     holder[i].unlocked = false;
-                    holder[i].reward *= h;
+                    holder[i].reward *= 2;
+                    console.log(holder[i].reward);
                 }
             }
             setQuestLevel(h);

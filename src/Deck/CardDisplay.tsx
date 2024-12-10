@@ -29,7 +29,7 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card, onClick }) => {
             <div
                 className={`card ${card.selected ? 'selected' : ''}`}
                 onClick={onClick}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', borderRadius: '10px' }}
             >
                 <div className="card-value">{card.rank}</div>
                 <div className={`card-suit ${card.suit.toLowerCase()}`}>
