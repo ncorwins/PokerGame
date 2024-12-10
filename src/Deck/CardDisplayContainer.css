@@ -33,6 +33,25 @@
         transform: translateY(-15px); /* Slightly lift the card */
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
     }
+    /* Points text above the card */
+    .card-points {
+        position: relative; /* Position relative to the container */
+        top: 20px; /* Adjust this to control the distance above the card */
+        font-size: 14px; /* Small font size for points */
+        font-weight: bold;
+        color: #FFF; /* Text color */
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        width: 100%; /* Center align the points above the card */
+        background-color: gray; /* Default background color */
+        border-radius: 10px;
+        transition: background-color 0.2s ease; /* Smooth transition */
+    }
+
+    /* Change background of points when card is selected */
+    .card.selected + .card-points {
+        background-color: green; /* Background color for selected card's points */
+    }
 
 /* Value of the card (rank) */
 .card-value {
@@ -71,3 +90,5 @@
         color: var(--spades); /* Red for diamonds */
 
     }
+
+

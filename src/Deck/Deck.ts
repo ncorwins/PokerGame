@@ -22,7 +22,7 @@ export class Deck {
 
         for (let suit of suits) {
             for (let i = 0; i < ranks.length; i++) {
-                this.deck.push(new Card(suit, values[i], ranks[i], false));
+                this.deck.push(new Card(suit, values[i], ranks[i], false, (values[i]-1)));
             }
         }
     }
@@ -56,7 +56,7 @@ export class Deck {
         console.log("Adding card back to the deck:", card);
         //console.log(this.deck.length);
         for (let i = 0; i < this.deck.length; i++) {
-            if (this.deck[i].value == card.value && this.deck[i].suit == card.suit) {
+            if (this.deck[i].value === card.value && this.deck[i].suit === card.suit) {
                 return;
             }
         }

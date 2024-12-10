@@ -1,11 +1,10 @@
 ﻿import * as React from "react";
-import { Card } from "./Card.ts";  // Import Card class
-import './CardDisplayContainer.css';  // Import styles for individual card display
-
+import { Card } from "./Card.ts"; // Import Card class
+import './CardDisplayContainer.css'; // Import styles for individual card display
 
 interface CardDisplayProps {
     card: Card;
-    onClick?: () => void;  // Make the onClick prop optional
+    onClick?: () => void; // Make the onClick prop optional
 }
 
 const CardDisplay: React.FC<CardDisplayProps> = ({ card, onClick }) => {
@@ -26,11 +25,18 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card, onClick }) => {
     };
 
     return (
-        <div className={`card ${card.selected ? 'selected' : ''}`} onClick={onClick} style={{ cursor: 'pointer' }}>
-            <div className="card-value">{card.rank}</div>
-            <div className={`card-suit ${card.suit.toLowerCase()}`}>
-                {getSuitSymbol(card.suit)}
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+            <div
+                className={`card ${card.selected ? 'selected' : ''}`}
+                onClick={onClick}
+                style={{ cursor: 'pointer' }}
+            >
+                <div className="card-value">{card.rank}</div>
+                <div className={`card-suit ${card.suit.toLowerCase()}`}>
+                    {getSuitSymbol(card.suit)}
+                </div>
             </div>
+            <div className="card-points">{card.points}</div>
         </div>
     );
 };

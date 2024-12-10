@@ -23,46 +23,60 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
     const [questLevel, setQuestLevel] = useState<number>(1);
     const [questArray, setQuestArray] = useState<any[]>([
         {
+            name: 'Two Pair',
+            hand: ['TWO_PAIR', 'FULL_HOUSE'],
+            reward: 50,
+            unlocked: false,
+            level: 1
+        },
+        {
+            name: 'Three of a Kind',
+            hand: ['THREE_OF_A_KIND','FULL_HOUSE','FOUR_OF_A_KIND'],
+            reward: 125,
+            unlocked: false,
+            level: 2
+        },
+        {
             name: 'Straight',
             hand: ['STRAIGHT', 'STRAIGHT_FLUSH', 'ROYAL_FLUSH'],
-            reward: 100,
-            unlocked: false,
-            level: 1
-        },
-        {
-            name: 'Flush',
-            hand: ['FLUSH', 'STRAIGHT_FLUSH', 'ROYAL_FLUSH'],
-            reward: 150,
-            unlocked: false,
-            level: 1
-        },
-        {
-            name: 'Full House',
-            hand: ['FULL_HOUSE'],
-            reward: 500,
-            unlocked: false,
-            level: 2
-        },
-        {
-            name: 'Quads',
-            hand: ['FOUR_OF_A_KIND'],
-            reward: 1000,
-            unlocked: false,
-            level: 2
-        },
-        {
-            name: 'Straight Flush',
-            hand: ['STRAIGHT_FLUSH','ROYAL_FLUSH'],
-            reward: 500,
+            reward: 300,
             unlocked: false,
             level: 3
         },
         {
-            name: 'Royal Flush',
-            hand: ['ROYAL_FLUSH'],
-            reward: 1000,
+            name: 'Flush',
+            hand: ['FLUSH', 'STRAIGHT_FLUSH', 'ROYAL_FLUSH'],
+            reward: 750,
             unlocked: false,
             level: 4
+        },
+        {
+            name: 'Full House',
+            hand: ['FULL_HOUSE'],
+            reward: 1750,
+            unlocked: false,
+            level: 5
+        },
+        {
+            name: 'Four of a Kind',
+            hand: ['FOUR_OF_A_KIND'],
+            reward: 5000,
+            unlocked: false,
+            level: 6
+        },
+        {
+            name: 'Straight Flush',
+            hand: ['STRAIGHT_FLUSH','ROYAL_FLUSH'],
+            reward: 12500,
+            unlocked: false,
+            level: 7
+        },
+        {
+            name: 'Royal Flush',
+            hand: ['ROYAL_FLUSH'],
+            reward: 50000,
+            unlocked: false,
+            level: 8
         }
 
     ]);

@@ -7,6 +7,7 @@ import SideButtons from './SideButtons.tsx';
 import Store from './Store.tsx';
 import { useGlobalState } from './GlobalStateContext.tsx';
 import Quests from './Quests.tsx';
+import ScoreBox from './ScoreBox.tsx';
 
 const App: React.FC = () => {
 
@@ -16,7 +17,8 @@ const App: React.FC = () => {
                 < SideButtons />
                 <div className="content">
                     < Store />
-                        < CardControls />
+                    < CardControls />
+                    <ScoreBox/>
                 </div>
                 < Quests />
             </div>

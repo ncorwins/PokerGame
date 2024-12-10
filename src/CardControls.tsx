@@ -10,6 +10,7 @@ import CardDisplay from './Deck/CardDisplay.tsx';
 import './CardControls.css';
 import PlayClick from './sound/PlayClick.tsx';
 import PlayPop from './sound/PlayPop.tsx';
+import ScoreBox from './ScoreBox.tsx';
 
 const CardControls: React.FC = () => {
     const [deck] = useState(new Deck());
@@ -34,12 +35,22 @@ const CardControls: React.FC = () => {
 
 
     React.useEffect(() => {
+        updatePointTotal();
+    }, [dealtCards])
+
+
+
+    function updatePointTotal() {
+        
+    }
+
+    React.useEffect(() => {
         let dealing = false; // Lock to prevent multiple card deals at once
 
         setSorting();
 
         if (dealtCards.length > 0) {
-            console.log("CHECK!");
+
             const sortedCards = sortByValue
                 ? sortCardsByValue(dealtCards)
                 : sortCardsBySuit(dealtCards);
@@ -211,7 +222,7 @@ const CardControls: React.FC = () => {
         }
 
         const handRank = evaluateHand(selectedCards);
-        const points = calculateHand(selectedCards, handRank);
+        const points = calculateHand(selectedCards, handRank, storeCards);
         const handName = Object.keys(HandRankings).find(
             key => HandRankings[key as keyof typeof HandRankings] === handRank
         );
@@ -272,8 +283,8 @@ const CardControls: React.FC = () => {
         setUsedDiscards(h + 1);
 
 
-        console.log(remainingCards);
-        console.log(removedCards);
+        //console.log(remainingCards);
+        //console.log(removedCards);
         removedCards.forEach(card => card.selected = false); // Return discarded cards to the deck
         removedCards.forEach(card => deck.add(card)); // Return discarded cards to the deck
         setDealtCards(remainingCards);
@@ -284,25 +295,30 @@ const CardControls: React.FC = () => {
         var holder = questArray;
         var hand = sayBestHand();
 
+        var totalQuestMoney = 0;
+
         for (let i = 0; i < holder.length; i++) {
             for (let j = 0; j < holder[i].hand.length; j++) {
                 if (hand === holder[i].hand[j]) {
                     if (holder[i].unlocked) {
-                        return 0;  // If the quest is unlocked, no reward
+                        continue;  // If the quest is unlocked, no reward
+                    }
+                    if (holder[i].level > questLevel) {
+                        continue;
                     }
 
                     holder[i].unlocked = true;
 
                     setQuestArray(holder);  // Update quest array after unlocking
                     if (doubleQuestMoney) {
-                        return holder[i].reward*2;
+                        totalQuestMoney += holder[i].reward*2;
                     }
-                    return holder[i].reward;  // Return the reward for the unlocked quest
+                    totalQuestMoney += holder[i].reward;  // Return the reward for the unlocked quest
                 }
             }
         }
 
-        return 0;  // If no match, return 0
+        return totalQuestMoney;  // If no match, return 0
     }
 
     function updateQuests() {
@@ -324,7 +340,7 @@ const CardControls: React.FC = () => {
                 if (holder[i].level < h) {
                     holder[i].level = h;
                     holder[i].unlocked = false;
-                    holder[i].reward *= h;
+                    holder[i].reward *= 2;
                 }
             }
             setQuestLevel(h);
@@ -335,18 +351,17 @@ const CardControls: React.FC = () => {
 
 
     function calculateMoney(points: number) {
+
         var updatedPoints = points;
 
-
         if (storeCards[0].purchased) {
+            console.log("TEST");
             updatedPoints *= 1.2;
         }
         else if (storeCards[1].purchased) {
+            console.log("TEST");
             updatedPoints += 50;
         }
-
-
-        updatedPoints -= globalAnte;
 
 
 
@@ -372,16 +387,18 @@ const CardControls: React.FC = () => {
         const newScore = globalPointScore + points + questMoney;
 
         setUsedDiscards(0);
-
-        const newMoney = globalMoney + calculateMoney(points) + questMoney;
-        console.log(globalMoney);
-        console.log(calculateMoney(points));
-        console.log(questMoney);
+        var holderM = globalMoney;
+        const newMoney = holderM + calculateMoney(points) + questMoney - globalAnte;
+        console.log('Current Money: ' + globalMoney);
+        console.log('Calculated Points:' + calculateMoney(points));
+        console.log('Quest Money:' + questMoney);
+        console.log('Ante:' + globalAnte);
         setGlobalMoney(newMoney);
 
         updateQuests();
 
         setGlobalPointScore(newScore);
+
         setTimeout(() => {
             deck.reset();
             setDealtCards([]);
@@ -448,7 +465,7 @@ const CardControls: React.FC = () => {
 
                     }, wordInterval)
 
-                    setBestHand('$' + Math.round(calculateMoney(points) + questMoney));
+                    setBestHand('$' + Math.round(calculateMoney(points) + questMoney - globalAnte));
 
                 }, wordInterval)
 
@@ -555,6 +572,8 @@ const CardControls: React.FC = () => {
             {(showPlayButton || showDiscardButton) && (
                 <button id="sorter" className="btn btn-moving-gradient btn-moving-gradient--green" onClick={updateSorting}></button>)}
             <h2 className="bestHandText">{bestHand}</h2>
+            <ScoreBox dealtCards={dealtCards} />
+
         </div>
     );
 };

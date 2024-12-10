@@ -79,19 +79,19 @@ function isStraightHand(cards: Card[]): boolean {
     const lowStraight = [0, 0, 0, 0, 0];
 
     for (let i = 0; i < cards.length; i++) {
-        if (cards[i].rank == 'A') {
+        if (cards[i].rank === 'A') {
             lowStraight[0] = 1;
         }
-        if (cards[i].rank == '2') {
+        if (cards[i].rank === '2') {
             lowStraight[1] = 1;
         }
-        if (cards[i].rank == '3') {
+        if (cards[i].rank === '3') {
             lowStraight[2] = 1;
         }
-        if (cards[i].rank == '4') {
+        if (cards[i].rank === '4') {
             lowStraight[3] = 1;
         }
-        if (cards[i].rank == '5') {
+        if (cards[i].rank === '5') {
             lowStraight[4] = 1;
         }
     }
@@ -99,7 +99,7 @@ function isStraightHand(cards: Card[]): boolean {
     var lowStraightT = true;
 
     for (let i = 0; i < lowStraight.length; i++) {
-        if (lowStraight[i] != 1) {
+        if (lowStraight[i] !== 1) {
             lowStraightT = false;
         }
     }
