@@ -377,7 +377,7 @@ const CardControls: React.FC = () => {
 
         const questMoney = checkQuests();
 
-        const newScore = globalPointScore + points + questMoney;
+        const newScore = globalPointScore + points.fullScore + questMoney;
 
         setUsedDiscards(0);
         var holderM = globalMoney;
