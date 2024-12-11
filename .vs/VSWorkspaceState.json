@@ -3,7 +3,9 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\Deck"
+    "\\src\\Deck",
+    "\\src\\notes",
+    "\\src\\sound"
   ],
   "SelectedNode": "\\src\\CardControls.tsx",
   "PreviewInSolutionExplorer": false

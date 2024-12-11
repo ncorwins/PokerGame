@@ -80,11 +80,21 @@ const Store: React.FC = () => {
                 var multi = false;
 
                 if (type === 'Multiplier') {
-                    bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
-                    god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
-                    god_text = formattedName.substring(0, formattedName.length - 10) + 'Mega Multiplier';
-                    bad_text = formattedName.substring(0, formattedName.length - 10) + 'Divider';
-                    multi = true;
+                    if (tempLuck = 'god') {
+                        bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
+                        god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
+                        god_text = formattedName.substring(0, formattedName.length - 10) + 'Mega Multiplier';
+                        bad_text = formattedName.substring(0, formattedName.length - 10) + 'Divider';
+                        multi = true;
+                    }
+                    else {
+                        bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
+                        god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
+                        bad_text = formattedName.substring(0, formattedName.length - 10) + 'Subtractor';
+                        god_text = formattedName.substring(0, formattedName.length - 10) + 'Adder';
+                        multi = false;
+                    }
+
                 } else {
                     bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
                     god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
