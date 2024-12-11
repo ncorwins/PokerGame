@@ -8,6 +8,7 @@ import Store from './Store.tsx';
 import { useGlobalState } from './GlobalStateContext.tsx';
 import Quests from './Quests.tsx';
 import ScoreBox from './ScoreBox.tsx';
+import ValuesBar from './ValuesBar.tsx';
 
 const App: React.FC = () => {
     const { gameStarted2 } = useGlobalState();
@@ -15,7 +16,8 @@ const App: React.FC = () => {
     return (
             <div className="app-container">
                 <SideButtons />
-                <div className="content">
+            <div className="content">
+                <ValuesBar/>
                     <Store />
                 <CardControls />
                 <ScoreBox />

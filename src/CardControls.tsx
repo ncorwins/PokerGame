@@ -17,7 +17,7 @@ const CardControls: React.FC = () => {
     const [deck] = useState(new Deck());
     const [dealtCards, setDealtCards] = useState<Card[]>([]);
     const [bestHand, setBestHand] = useState<string>(''); // To store the best hand
-    const {setGameStarted2, hasPlayed, setHasPlayed, doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
+    const { lookingAtStore, valuesVisible, setValuesVisible, setLookingAtStore, statsArray, setViewingStoreCards, setHasUnlocked, setGameStarted2, hasPlayed, setHasPlayed, doubleQuestMoney, questLevel, setQuestLevel, questArray, setQuestArray, setSortByValue, sortByValue, usedDiscards, setUsedDiscards, totalDiscards, globalAnte, setTwosRemoved, twosRemoved, storeCards, globalCardCount, setGlobalMoney, globalMoney, setShowPlayButton2, generateCards, setGenerateCards, setGlobalPointScore, globalPointScore } = useGlobalState();
 
     // State variables to manage button visibility
     const [showDiscardButton, setShowDiscardButton] = useState(false);
@@ -36,14 +36,20 @@ const CardControls: React.FC = () => {
 
 
     React.useEffect(() => {
-        updatePointTotal();
-    }, [dealtCards])
-
-
-
-    function updatePointTotal() {
+        if (!gameStarted) {
+            setValuesVisible(false);
+            return;
+        }
+        else if (dealtCards.length == 0) {
+            setValuesVisible(false);
+            return
+        }
+        else {
+            setValuesVisible(true);
+            return;
+        }
         
-    }
+    }, [dealtCards])
 
     React.useEffect(() => {
         let dealing = false; // Lock to prevent multiple card deals at once
@@ -142,9 +148,7 @@ const CardControls: React.FC = () => {
 
     if (gameStarted) {
 
-
         if (dealtCards != null && dealtCards.length  == globalCardCount) {
-
 
             if (globalMoney < 0) {
                 return;
@@ -176,8 +180,6 @@ const CardControls: React.FC = () => {
                     setShowPlayButton(false);
                 }
             }
-
-
 
         }
         else {
@@ -226,7 +228,7 @@ const CardControls: React.FC = () => {
         }
 
         const handRank = evaluateHand(selectedCards);
-        const points = calculateHand(selectedCards, handRank, storeCards);
+        const points = calculateHand(selectedCards, handRank, statsArray);
         const handName = Object.keys(HandRankings).find(
             key => HandRankings[key as keyof typeof HandRankings] === handRank
         );
@@ -256,6 +258,9 @@ const CardControls: React.FC = () => {
         }
         else if (handName === 'HIGH_CARD') {
             handNameNice = 'High Card';
+        }
+        else if (handName === 'PAIR') {
+            handNameNice = 'One Pair';
         }
         else {
             handNameNice = handName;
@@ -354,28 +359,11 @@ const CardControls: React.FC = () => {
     }
 
 
-
-    function calculateMoney(points: number) {
-
-        var updatedPoints = points;
-
-        if (storeCards[0].purchased) {
-            console.log("TEST");
-            updatedPoints *= 1.2;
-        }
-        else if (storeCards[1].purchased) {
-            console.log("TEST");
-            updatedPoints += 50;
-        }
-
-
-
-        return (updatedPoints);
-    }
-
-
     const playHand = () => {
         const points = evaluateBestHand();
+
+        setHasUnlocked(false);
+        setViewingStoreCards([]);
 
         if (points === 0) {
             return;
@@ -393,9 +381,9 @@ const CardControls: React.FC = () => {
 
         setUsedDiscards(0);
         var holderM = globalMoney;
-        const newMoney = holderM + calculateMoney(points) + questMoney - globalAnte;
+        const newMoney = holderM + points.fullScore + questMoney - globalAnte;
         console.log('Current Money: ' + globalMoney);
-        console.log('Calculated Points:' + calculateMoney(points));
+        console.log('Calculated Points:' + points.fullScore);
         console.log('Quest Money:' + questMoney);
         console.log('Ante:' + globalAnte);
         setGlobalMoney(newMoney);
@@ -404,7 +392,7 @@ const CardControls: React.FC = () => {
 
         setGlobalPointScore(newScore);
 
-        const popDelay = 140;
+        const popDelay = 135;
 
         const openAnimTime = 4;
 
@@ -493,11 +481,10 @@ const CardControls: React.FC = () => {
                         }
 
                         setShowPlayButton2(true);
-
-
+                        setLookingAtStore(true);
                     }, wordInterval)
 
-                    setBestHand('$' + Math.round(calculateMoney(points) + questMoney - globalAnte));
+                    setBestHand('$' + Math.round(points.fullScore + questMoney - globalAnte));
 
                 }, wordInterval)
 

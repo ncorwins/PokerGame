@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as React from 'react';
 import { evaluateHand, HandRankings } from './Deck/handEvaluator.ts'; // Import the evaluator
 import { useGlobalState } from './GlobalStateContext.tsx';
+import { calculateHand } from './handCalculator.ts';
 
 interface ScoreBoxProps {
     dealtCards: {
@@ -13,7 +14,7 @@ interface ScoreBoxProps {
 }
 
 const ScoreBox: React.FC<ScoreBoxProps> = ({ dealtCards }) => {
-    const { questArray, globalCardCount, setQuestArray, doubleQuestMoney, questLevel, globalAnte } = useGlobalState();
+    const { statsArray, questArray, globalCardCount, setQuestArray, doubleQuestMoney, questLevel, globalAnte } = useGlobalState();
     // Track if the button should be visible
     const [isButtonVisible, setIsButtonVisible] = useState(false);
 
@@ -80,19 +81,20 @@ const ScoreBox: React.FC<ScoreBoxProps> = ({ dealtCards }) => {
         const calculatedMult = dealtCards
             .filter((card) => card.selected); // Only include selected cards
 
-        if (calculatedMult.length == 5) {
-            const multi = evaluateHand(calculatedMult);
-            setTotalMulti(multi + 1);
-        } else {
-            setTotalMulti(0);
-        }
+        // Assuming evaluateHand returns a multiplier or a value derived from the hand
+        const multi = evaluateHand(calculatedMult);
+        console.log(calculatedMult);
+        // If calculateHand requires both the selected cards and the multiplier
+        const newPoints = calculateHand(calculatedMult, multi, statsArray);
 
         setQuestBonus(checkQuests());
         // Update the total points in state
-        setTotalPoints(calculatedPoints);
+        console.log(newPoints);
+
+        setTotalPoints(newPoints.fullScore);
     }, [dealtCards]); // Re-run this effect when dealtCards change
 
-    const resultValue = questBonus + (totalMulti * totalPoints) - globalAnte;
+    const resultValue = questBonus + totalPoints - globalAnte;
 
     // Determine the button color based on the result value
     const resultButtonClass = resultValue >= 0 ? "btn-success" : "btn-error"; // You can use Tailwind's built-in colors or custom ones
@@ -101,24 +103,13 @@ const ScoreBox: React.FC<ScoreBoxProps> = ({ dealtCards }) => {
     const fontSizeVar = 15;
     const marginSize = 1.5;
 
+
+
     return (
         <div className="scoreBox-card-container" style={{marginTop: '40px'} }>
             <div>
                 {isButtonVisible && (
                     <div>
-                        <div className="join">
-                            <button id="basePoints" className="btn rounded-full join-item largerButton" style={{ margin: `${marginSize}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', fontSize: `${fontSizeVar}` + 'px' }}>
-                                {totalPoints}
-                            </button>
-
-                            <button className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>X</button>
-
-                            <button id="baseMult" className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>{totalMulti}</button>
-
-                            <button className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>=</button>
-
-                            <button id="baseMult" className="btn rounded-full join-item " style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px' }}>{(totalMulti * totalPoints)}</button>
-                        </div>
                         <div style={{ margin: '10px' }}>
                             <div className="join">
                                 <div className="join">
@@ -136,7 +127,7 @@ const ScoreBox: React.FC<ScoreBoxProps> = ({ dealtCards }) => {
                                     id="result"
                                     className={`btn rounded-full join-item ${resultButtonClass}`} // Apply dynamic class
                                     style={{ margin: `${marginSize}` + 'px', fontSize: `${fontSizeVar}` + 'px', minWidth: `${minWH}` + 'px', minHeight: `${minWH}` + 'px', textIndent: '-5px' }}
-                                >{resultValue}
+                                >{Math.round(resultValue)}
                                 </button>
                             </div>
                         </div>

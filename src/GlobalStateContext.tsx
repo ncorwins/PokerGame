@@ -6,7 +6,7 @@ const GlobalStateContext = createContext<any>(null);
 
 // Create a provider component
 export const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
-    const [globalCardCount, setGlobalCardCount] = useState<number>(7);
+    const [globalCardCount, setGlobalCardCount] = useState<number>(6);
     const [globalPointScore, setGlobalPointScore] = useState<number>(0);
     const [totalDiscards, setTotalDiscards] = useState<number>(2);
     const [usedDiscards, setUsedDiscards] = useState<number>(0);
@@ -14,6 +14,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
     const [globalMoney, setGlobalMoney] = useState<number>(100);
     const [showPlayButton2, setShowPlayButton2] = useState<boolean>(false);
     const [twosRemoved, setTwosRemoved] = useState<boolean>(false);
+    const [lookingAtStore, setLookingAtStore] = useState<boolean>(false);
     const [generateCards, setGenerateCards] = useState<boolean>(true);
     const [sortByValue, setSortByValue] = useState<boolean>(true);
     const [hasPlayed, setHasPlayed] = useState<boolean>(false);
@@ -23,6 +24,9 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
     const [globalAnte, setGlobalAnte] = useState<number>(25);
     const [questLevel, setQuestLevel] = useState<number>(1);
     const [gameStarted2, setGameStarted2] = useState<boolean>(false);
+    const [hasUnlocked, setHasUnlocked] = useState<boolean>(false);
+    const [valuesVisible, setValuesVisible] = useState<boolean>(false);
+    const [viewingStoreCards, setViewingStoreCards] = useState<any[]>([]);
     const [questArray, setQuestArray] = useState<any[]>([
         {
             name: 'Two Pair',
@@ -95,70 +99,54 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
             ROYAL_FLUSH: 5000,
         };*/
 
-    const [storeCards, setStoreCards] = useState<any[]>([
-        {
-            name: "Money Multiplier",
-            desc: "Earn 20% more Money",
-            cost: 200,
-            selected: false,
-            visible: false,
-            purchased: false,
-            level: 0,
-            id: 0
-        },
-        {
-            name: "Money Adder",
-            desc: "Adds + 50 Money per Turn",
-            cost: 300,
-            selected: false,
-            visible: false,
-            purchased: false,
-            level: 0,
-            id: 1
-        }
-        ,
-        {
-            name: "Poop Buster",
-            desc: "Removes all 2s",
-            cost: 500,
-            selected: false,
-            visible: false,
-            purchased: false,
-            level: 0,
-            id: 2
-        },
-        {
-            name: "Extra Card",
-            desc: "Get an Extra Card",
-            cost: 1000,
-            selected: false,
-            visible: false,
-            purchased: false,
-            level: 0,
-            id: 3
-        },
-        {
-            name: "Extra Discard",
-            desc: "Get an Extra Discard",
-            cost: 1500,
-            selected: false,
-            visible: false,
-            purchased: false,
-            level: 0,
-            id: 4
-        },
-        {
-            name: "Quests x2",
-            desc: "Get x2 Quest Money",
-            cost: 3000,
-            selected: false,
-            visible: false,
-            purchased: false,
-            level: 0,
-            id: 5
-        }
-    ]);
+    const [storeCards, setStoreCards] = useState<String[]>([
+        "GLOBAL_MULTIPLIER",
+        "GLOBAL_ADDER",
 
+        "SPADES_MULTIPLIER",
+        "CLUBS_MULTIPLIER",
+        "HEARTS_MULTIPLIER",
+        "DIAMONDS_MULTIPLIER",
+
+        "SPADES_ADDER",
+        "CLUBS_ADDER",
+        "HEARTS_ADDER",
+        "DIAMONDS_ADDER",
+
+        "STRAIGHT_MULTIPLIER",
+        "FLUSH_MULTIPLIER",
+        "FULL_HOUSE_MULTIPLIER",
+        "FOUR_OF_A_KIND_MULTIPLIER",
+
+        "STRAIGHT_ADDER",
+        "FLUSH_ADDER",
+        "FULL_HOUSE_ADDER",
+        "FOUR_OF_A_KIND_ADDER",
+    ]);
+    const [statsArray, setStatsArray] = useState<any[]>([{
+        GLOBAL_MULTIPLIER: 1,
+        GLOBAL_ADDER: 0,
+
+        SPADES_MULTIPLIER: 1,
+        CLUBS_MULTIPLIER: 1,
+        HEARTS_MULTIPLIER: 1,
+        DIAMONDS_MULTIPLIER: 1,
+
+        SPADES_ADDER: 0,
+        CLUBS_ADDER: 0,
+        HEARTS_ADDER: 0,
+        DIAMONDS_ADDER: 0,
+
+        STRAIGHT_MULTIPLIER: 1,
+        FLUSH_MULTIPLIER: 1,
+        FULL_HOUSE_MULTIPLIER: 1,
+        FOUR_OF_A_KIND_MULTIPLIER: 1,
+
+        STRAIGHT_ADDER: 0,
+        FLUSH_ADDER: 0,
+        FULL_HOUSE_ADDER: 0,
+        FOUR_OF_A_KIND_ADDER: 0
+        }]);
 
     return (
         <GlobalStateContext.Provider value={{
@@ -199,7 +187,17 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
             hasPlayed,
             setHasPlayed,
             gameStarted2,
-            setGameStarted2
+            setGameStarted2,
+            hasUnlocked,
+            setHasUnlocked,
+            statsArray,
+            setStatsArray,
+            viewingStoreCards,
+            setViewingStoreCards,
+            lookingAtStore,
+            setLookingAtStore,
+            valuesVisible,
+            setValuesVisible
         }}>
             {children}
         </GlobalStateContext.Provider>

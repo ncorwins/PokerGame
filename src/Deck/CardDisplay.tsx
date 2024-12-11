@@ -31,8 +31,8 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card, index, onClick, hasPlay
     const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
 
     const STACK_DISTANCE = -95;
-    const targetY = 195;
-    const targetX = 210 + index * STACK_DISTANCE;
+    const targetY = 250;
+    const targetX = 280 + index * STACK_DISTANCE;
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -41,7 +41,7 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card, index, onClick, hasPlay
         }
     }
 
-    var animTimes = [1.5, 1.7, 1.9, 2.1, 2.3];
+    var animTimes = [1.35, 1.55, 1.75, 1.95, 2.15];
     shuffleArray(animTimes);
 
     if (hasPlayed) {
