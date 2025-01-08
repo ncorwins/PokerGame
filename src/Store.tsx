@@ -80,7 +80,7 @@ const Store: React.FC = () => {
                 var multi = false;
 
                 if (type === 'Multiplier') {
-                    if (tempLuck = 'god') {
+                    if (tempLuck === 'god') {
                         bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
                         god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
                         god_text = formattedName.substring(0, formattedName.length - 10) + 'Mega Multiplier';
@@ -90,16 +90,25 @@ const Store: React.FC = () => {
                     else {
                         bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
                         god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
-                        bad_text = formattedName.substring(0, formattedName.length - 10) + 'Subtractor';
-                        god_text = formattedName.substring(0, formattedName.length - 10) + 'Adder';
+                        bad_text = formattedName.substring(0, formattedName.length - 10) + 'Divider';
+                        god_text = formattedName.substring(0, formattedName.length - 10) + 'Multiplier';
                         multi = false;
                     }
 
                 } else {
-                    bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
-                    god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
-                    bad_text = formattedName.substring(0, formattedName.length - 5) + 'Subtractor';
-                    god_text = formattedName.substring(0, formattedName.length - 5) + 'Master Adder';
+                    if (tempLuck === 'god') {
+                        bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
+                        god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
+                        bad_text = formattedName.substring(0, formattedName.length - 5) + 'Subtractor';
+                        god_text = formattedName.substring(0, formattedName.length - 5) + 'Master Adder';
+                    }
+                    else {
+                        bad_val = parseFloat((Math.random() * 2 + 1).toFixed(1));
+                        god_val = parseFloat((Math.random() * 2 + 3).toFixed(1));
+                        bad_text = formattedName.substring(0, formattedName.length - 5) + 'Subtractor';
+                        god_text = formattedName.substring(0, formattedName.length - 5) + 'Adder';
+                    }
+
                 }
 
                 newStoreCards.push({
